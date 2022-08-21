@@ -1,3 +1,4 @@
+import { Comment } from './Comment';
 import styles from './Post.module.css';
 
 export function Post(){
@@ -33,7 +34,21 @@ export function Post(){
         </p>
       </div>  
 
-    
+      <form className={styles.commentForm}>
+        <strong>Drop a feedback</strong>
+
+        <textarea 
+          placeholder="Drop a feedback"
+        />
+
+        <footer>
+          <button type="submit">Publish</button>
+        </footer>
+      </form>
+
+      <div className={styles.commentList}>
+        <Comment/>
+      </div>    
     </article>
   )
 }
