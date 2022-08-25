@@ -28,8 +28,21 @@ export function Post({author, publishedAt, content}){
   }
 
   function handleNewCommentChange(){
+    event.target.setCustomValidity('');
     setNewCommentText(event.target.value)
    
+  }
+
+  function deleteComment(commentToDelete){
+    const commentsWithoutDeletedOne = comments.filter(comment => {
+      return comment != commentToDelete;
+    })
+
+    setComments(commentsWithoutDeletedOne);
+  }
+
+  function handleNewCommentInvalid(){
+    event.target.setCustomValidity('This is a mandatory field');
   }
 
   return (
@@ -68,7 +81,9 @@ export function Post({author, publishedAt, content}){
           name="comment"
           placeholder="Drop a feedback"
           value={newCommentText}
-          onchange={handleNewCommentChange}
+          onChange={handleNewCommentChange}
+          onInvalid={handleNewCommentInvalid}
+          required
         />
 
         <footer>
@@ -78,7 +93,13 @@ export function Post({author, publishedAt, content}){
 
       <div className={styles.commentList}>
         {comments.map(comment =>{
-          return <Comment key={comment} content={comment}/>
+          return (
+            <Comment 
+              key={comment} 
+              content={comment} 
+              ondeleteComment={deleteComment}
+            />
+          )
         })}
       </div>    
     </article>
