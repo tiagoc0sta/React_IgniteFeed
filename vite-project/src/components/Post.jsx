@@ -13,6 +13,8 @@ export function Post({author, publishedAt, content}){
 
   const[newCommentText, setNewCommentText] =useState('')
 
+  console.log(newCommentText);
+
   const publishedDateFormatted = format(publishedAt, "d  LLLL 'at' HH:mm'h'");
 
   const publishedDateRelativeToNow = formatDistanceToNow(publishedAt,{
@@ -44,6 +46,8 @@ export function Post({author, publishedAt, content}){
   function handleNewCommentInvalid(){
     event.target.setCustomValidity('This is a mandatory field');
   }
+
+  const isNewCommentEmpty = newCommentText.length===0 ;
 
   return (
     <article className={styles.post}>
@@ -87,7 +91,9 @@ export function Post({author, publishedAt, content}){
         />
 
         <footer>
-          <button type="submit">Publish</button>
+          <button type="submit" disabled={isNewCommentEmpty}>
+            Publish
+          </button>
         </footer>
       </form>
 
